@@ -2,15 +2,14 @@
   "name": "react-hook-typescript-weather-wigdet",
   "version": "1.1.1",
   "private": true,
-  "description": "React App with React hooks, Redux and Typescript",
+  "description": "React App with React hooks, Redux and Typescript, boilerplate reference https://github.com/rokoroku/react-redux-typescript-boilerplate",
   "homepage": "https://taiducnguyen.github.io/reactjs-typescript-weather-wigdet",
   "keywords": [
     "react",
     "hooks",
     "redux",
     "typescript",
-    "boilerplate",
-    "todomvc"
+    "boilerplate"
   ],
   "main": "index.js",
   "scripts": {
@@ -79,6 +78,7 @@
     "webpack-dev-server": "^3.10.1"
   },
   "dependencies": {
+    "@types/lodash": "^4.14.177",
     "classnames": "^2.2.6",
     "eslint-config-prettier": "8.3.0",
     "eslint-config-react-app": "^6.0.0",
@@ -86,6 +86,7 @@
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-prettier": "3.4.0",
     "eslint-plugin-react-hooks": "4.2.0",
+    "lodash": "^4.17.21",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-redux": "^7.1.1",
@@ -94,6 +95,7 @@
     "redux-actions": "^2.6.5",
     "redux-thunk": "^2.3.0",
     "sass": "^1.43.5",
-    "sass-loader": "10.1.1"
+    "sass-loader": "10.1.1",
+    "whatwg-fetch": "^3.6.2"
   }
 }

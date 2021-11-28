@@ -1,6 +1,6 @@
-import { TodoModel } from 'app/models'
+import { IWeatherState } from './weather.reducer'
 
 export interface RootState {
-  todos: TodoModel[];
   router?: any;
+  weather: IWeatherState;
 }
