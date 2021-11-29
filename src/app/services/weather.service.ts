@@ -2,7 +2,7 @@ import { WeatherUnits } from 'app/models'
 import HttpClient from './http-axios.service'
 
 export default class WeatherService {
-  private _apiUrl = 'http://api.openweathermap.org';
+  private _apiUrl = process.env.NODE_ENV === 'development' ? 'http://api.openweathermap.org' : 'https://api.openweathermap.org';
   private _apiId = '1c5da32bd6a0d1c4c017b21b49833c7f';
   private _httpClient: HttpClient;
 

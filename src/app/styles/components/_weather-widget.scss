@@ -1,9 +1,12 @@
 .weather-widget {
   &__card {
-    width: 600px;
+    width: 100%;
     padding: 70px 40px;
     background-color: $color-white;
-    margin: 50px auto;
+    @include tablet {
+      width: 600px;
+      margin: 50px auto;
+    }
     &-content {
       position: relative;
     }
@@ -118,7 +121,7 @@
     border-bottom: none;
     text-align: center;
     cursor: pointer;
-    padding: 20px 5px;
+    padding: 20px 0;
     color: $color-black;
     &:hover {
       opacity: 0.8;
