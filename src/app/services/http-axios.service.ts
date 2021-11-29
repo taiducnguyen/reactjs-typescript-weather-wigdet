@@ -39,7 +39,7 @@ export default class HttpClient {
 
   /**
    * Get Http Request
-   * @param {any} url
+   * @param {string} url
    */
   get (url: string) {
     return new Promise((resolve, reject) => {
@@ -63,7 +63,7 @@ export default class HttpClient {
 
   /**
    * Post Http Request
-   * @param {any} url
+   * @param {string} url
    * @param {any} parrams
    */
   post (url: string, parrams: any) {
@@ -89,7 +89,7 @@ export default class HttpClient {
 
   /**
    * Put Http Request
-   * @param {any} url
+   * @param {string} url
    * @param {any} parrams
    */
   put (url: string, parrams: any) {

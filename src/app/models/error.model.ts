@@ -4,7 +4,6 @@ export interface IErrorModel {
     message?: string;
     modelState?: string;
     name?: string;
-    error?: any;
     [path: string]: any;
 }
 
