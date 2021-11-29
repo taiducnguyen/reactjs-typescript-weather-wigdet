@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 export interface IWeatherModel {
     id: number;
     main: string;
@@ -24,6 +25,7 @@ export interface IWeatherSysInfoModel {
     sunset: number;
 }
 
+/* eslint-disable camelcase */
 export interface IWeatherMainInfoModel {
     temp: number;
     pressure: number;
@@ -49,6 +51,7 @@ export interface IWeatherConditionModel {
     cod?: number;
 }
 
+/* eslint-disable camelcase */
 export interface ILocationInfoModel {
     name?: string;
     local_names?: object;
@@ -57,6 +60,7 @@ export interface ILocationInfoModel {
     country?: string;
 }
 
+/* eslint-disable camelcase */
 export interface IConcentrationModel {
     co: number;
     no: number;
@@ -70,13 +74,15 @@ export interface IConcentrationModel {
 
 export interface IAirPollutionDetailModel {
     dt?: number;
-    main?: object;
+    main?: {
+        aqi: number;
+    };
     components?: IConcentrationModel;
 }
 
 export interface IAirPollutionModel {
-    coord: number[],
-    list: IAirPollutionDetailModel[];
+    coord?: number[],
+    list?: IAirPollutionDetailModel[];
 }
 
 export interface ITemperatureModel {
@@ -88,6 +94,7 @@ export interface ITemperatureModel {
     morn: number;
 }
 
+/* eslint-disable camelcase */
 export interface ICurrentAndForcecastDetailModel {
     dt?: number;
     sunrise?: number;
@@ -122,6 +129,7 @@ export interface IMinutelyModel {
     precipitation: number;
 }
 
+/* eslint-disable camelcase */
 export interface ICurrentAndForcecastModel {
     lat?: number;
     lon?: number;
@@ -133,6 +141,7 @@ export interface ICurrentAndForcecastModel {
     daily?: IDailyAndForcecastItemModel[];
 }
 
+/* eslint-disable no-unused-vars */
 export enum WeatherUnits {
     Standard = 'standard',
     Imperial = 'imperial',

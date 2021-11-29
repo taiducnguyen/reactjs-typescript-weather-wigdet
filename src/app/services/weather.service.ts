@@ -1,24 +1,28 @@
 import { WeatherUnits } from 'app/models'
+import HttpClient from './http-axios.service'
 
-const _weatherApiEndpoint = 'http://api.openweathermap.org'
-const _apiId = '1c5da32bd6a0d1c4c017b21b49833c7f'
+export default class WeatherService {
+  private _apiUrl = 'http://api.openweathermap.org';
+  private _apiId = '1c5da32bd6a0d1c4c017b21b49833c7f';
+  private _httpClient: HttpClient;
 
-export const getLocationByCityName = async (cityName: string) => {
-  const response = await fetch(`${_weatherApiEndpoint}/geo/1.0/direct?q=${cityName}&appid=${_apiId}`)
-  return response.json()
-}
+  constructor () {
+    this._httpClient = new HttpClient(this._apiUrl)
+  }
 
-export const getWeatherIconByCityName = async (cityName: string) => {
-  const response = await fetch(`${_weatherApiEndpoint}/data/2.5/weather?q=${cityName}&appid=${_apiId}`)
-  return response.json()
-}
+  getLocationByCityName = (cityName: string): Promise<any> => {
+    return this._httpClient.get(`/geo/1.0/direct?q=${cityName}&appid=${this._apiId}`)
+  }
 
-export const getCurrentAndForecastWeatherData = async (lat: number, lon: number, units: WeatherUnits) => {
-  const response = await fetch(`${_weatherApiEndpoint}/data/2.5/onecall?lat=${lat}&lon=${lon}&units=${units}&appid=${_apiId}`)
-  return response.json()
-}
+  getWeatherIconsByCityName = (cityName: string): Promise<any> => {
+    return this._httpClient.get(`/data/2.5/weather?q=${cityName}&appid=${this._apiId}`)
+  }
 
-export const getAirPollutionWeatherData = async (lat: number, lon: number) => {
-  const response = await fetch(`${_weatherApiEndpoint}/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${_apiId}`)
-  return response.json()
+  getCurrentAndForecastWeatherData = (lat: number, lon: number, units: WeatherUnits): Promise<any> => {
+    return this._httpClient.get(`/data/2.5/onecall?lat=${lat}&lon=${lon}&units=${units}&appid=${this._apiId}`)
+  }
+
+  getAirPollutionWeatherData = (lat: number, lon: number): Promise<any> => {
+    return this._httpClient.get(`/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${this._apiId}`)
+  }
 }

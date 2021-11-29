@@ -9,14 +9,24 @@
     height: 15px;
   }
 }
-
-.loader {
-  display: none;
-  &.active {
-    display: inline-block;
+.loading {
+  &__loader {
+    transition: background-color .4s cubic-bezier(.23, 1, .32, 1) 0s;
+    background-color: rgba(222, 226, 230, .65);
+    display: none;
+    &.active {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   }
-  .line {
+  &__line {
     background-color: $color-blue2;
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border-radius: 15px;
+
     &:nth-last-child(1) {
       animation: loadingA 1.5s 1s infinite;
     }

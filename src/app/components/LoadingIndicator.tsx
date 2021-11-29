@@ -1,11 +1,16 @@
 import React from 'react'
 
-export const LoadingIndicator = ({ loading = false }) => {
+interface ILoadingIndicatorProp {
+  loading: boolean;
+  className: string;
+}
+const LoadingIndicator = ({ loading = false, className = '' }: ILoadingIndicatorProp) => {
   return (
-        <div className={`loader ${loading ? 'active' : 'hidden'}`}>
-            <div className="line"></div>
-            <div className="line"></div>
-            <div className="line"></div>
-        </div>
+    <div className={`loading__loader ${className} ${loading ? 'active' : 'hidden'}`}>
+      <div className="loading__line"></div>
+      <div className="loading__line"></div>
+      <div className="loading__line"></div>
+    </div>
   )
 }
+export default LoadingIndicator
