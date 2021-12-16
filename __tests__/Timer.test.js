@@ -61,3 +61,19 @@ it('Timer pause/resume the text after click PAUSE/RESUME button', async () => {
     });
     expect(getByTestId(/running-clock/i).textContent).toEqual('01:01');
 });
+
+it('Timer finish count down', async () => {
+    jest.useFakeTimers();
+    const { getByRole, getByLabelText, getByTestId } = render(
+        <Timer />,
+    );
+    fireEvent.change(getByLabelText(/minute-input/i), { target: { value: '0' } });
+    fireEvent.change(getByLabelText(/second-input/i), { target: { value: '5' } });
+    fireEvent.click(getByRole('button', { name: /START/i }));
+    expect(getByTestId(/running-clock/i).textContent).toEqual('00:05');
+    // End
+    act(() => {
+        jest.advanceTimersByTime(5000);
+    });
+    expect(getByTestId(/running-clock/i).textContent).toEqual('00:00');
+});
