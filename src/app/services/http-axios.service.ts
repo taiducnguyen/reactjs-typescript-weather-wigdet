@@ -19,7 +19,7 @@ const errorHandler = (error: any): Promise<IErrorResponse> => {
 }
 
 export default class HttpClient {
-  private axios: AxiosInstance;
+  private axios: AxiosInstance
   constructor (baseUrl: string) {
     this.axios = axios.create({
       baseURL: baseUrl,

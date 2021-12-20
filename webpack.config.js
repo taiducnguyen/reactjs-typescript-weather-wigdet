@@ -19,7 +19,7 @@ module.exports = {
   },
   output: {
     path: outPath,
-    filename: isProduction ? '[contenthash].js' : '[hash].js',
+    filename: isProduction ? '[contenthash].js' : '[name].js',
     chunkFilename: isProduction ? '[name].[contenthash].js' : '[name].[hash].js'
   },
   target: 'web',
@@ -30,6 +30,9 @@ module.exports = {
     mainFields: ['module', 'browser', 'main'],
     alias: {
       app: path.resolve(__dirname, 'src/app/')
+    },
+    fallback: {
+      fs: false
     }
   },
   module: {
@@ -52,7 +55,7 @@ module.exports = {
           isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
           {
             loader: 'css-loader',
-            query: {
+            options: {
               sourceMap: !isProduction,
               importLoaders: 1,
               modules: {
@@ -102,7 +105,7 @@ module.exports = {
   },
   optimization: {
     splitChunks: {
-      name: true,
+      name: false,
       cacheGroups: {
         commons: {
           chunks: 'initial',
@@ -126,7 +129,6 @@ module.exports = {
     new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
       filename: '[hash].css',
-      disable: !isProduction
     }),
     new HtmlWebpackPlugin({
       template: 'public/index.html',
@@ -150,21 +152,17 @@ module.exports = {
     })
   ],
   devServer: {
-    contentBase: sourcePath,
+    static: sourcePath,
     hot: true,
-    inline: true,
     historyApiFallback: {
       disableDotRule: true
     },
-    stats: 'minimal',
-    clientLogLevel: 'warning'
+    client: {
+      logging: 'info',
+    },
+    https: false,
   },
+  stats: 'minimal',
   // https://webpack.js.org/configuration/devtool/
-  devtool: isProduction ? 'hidden-source-map' : 'cheap-module-eval-source-map',
-  node: {
-    // workaround for webpack-dev-server issue
-    // https://github.com/webpack/webpack-dev-server/issues/60#issuecomment-103411179
-    fs: 'empty',
-    net: 'empty'
-  }
+  devtool: isProduction ? false : 'source-map',
 };
