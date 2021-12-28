@@ -1,18 +1,22 @@
-var webpack = require('webpack');
-var path = require('path');
-var package = require('./package.json');
+const webpack = require('webpack');
+const path = require('path');
+const package = require('./package.json');
 
-// variables
-var isProduction = process.argv.indexOf('-p') >= 0 || process.env.NODE_ENV === 'production';
-var sourcePath = path.join(__dirname, './src');
-var outPath = path.join(__dirname, './build');
+// constiables
+const isProduction = process.argv.indexOf('--mode=production') >= 0 || process.env.NODE_ENV === 'production';
+const sourcePath = path.join(__dirname, './src');
+const outPath = path.join(__dirname, './build');
+const publicPath = path.join(sourcePath, './public')
+const mode = isProduction ? 'production' : 'development';
 
 // plugins
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var MiniCssExtractPlugin = require('mini-css-extract-plugin');
-var { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
+  mode,
   context: sourcePath,
   entry: {
     app: './main.tsx'
@@ -20,7 +24,7 @@ module.exports = {
   output: {
     path: outPath,
     filename: isProduction ? '[contenthash].js' : '[name].js',
-    chunkFilename: isProduction ? '[name].[contenthash].js' : '[name].[hash].js'
+    chunkFilename: isProduction ? '[name].[contenthash].js' : '[name].[fullhash].js'
   },
   target: 'web',
   resolve: {
@@ -59,7 +63,7 @@ module.exports = {
               sourceMap: !isProduction,
               importLoaders: 1,
               modules: {
-                localIdentName: isProduction ? '[hash:base64:5]' : '[local]__[hash:base64:5]'
+                localIdentName: isProduction ? '[fullhash:base64:5]' : '[local]__[fullhash:base64:5]'
               }
             }
           },
@@ -114,7 +118,7 @@ module.exports = {
         vendors: {
           test: /[\\/]node_modules[\\/]/,
           chunks: 'all',
-          filename: isProduction ? 'vendor.[contenthash].js' : 'vendor.[hash].js',
+          filename: isProduction ? 'vendor.[contenthash].js' : 'vendor.[fullhash].js',
           priority: -10
         }
       }
@@ -123,16 +127,16 @@ module.exports = {
   },
   plugins: [
     new webpack.EnvironmentPlugin({
-      NODE_ENV: 'development', // use 'development' unless process.env.NODE_ENV is defined
+      NODE_ENV: mode, // use 'development' unless process.env.NODE_ENV is defined
       DEBUG: false
     }),
     new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
-      filename: '[hash].css',
+      filename: '[fullhash].css',
     }),
     new HtmlWebpackPlugin({
-      template: 'public/index.html',
-      favicon: 'public/favicon.ico',
+      template: path.resolve(publicPath, 'index.html'),
+      favicon: path.resolve(publicPath, 'favicon.ico'),
       minify: {
         minifyJS: true,
         minifyCSS: true,
@@ -149,7 +153,14 @@ module.exports = {
         description: package.description,
         keywords: Array.isArray(package.keywords) ? package.keywords.join(',') : undefined
       }
-    })
+    }),
+    new CopyPlugin({
+      patterns: [
+        {
+          from: path.resolve(publicPath, 'web.config'),
+        }
+      ],
+    }),
   ],
   devServer: {
     static: sourcePath,
