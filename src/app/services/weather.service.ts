@@ -1,4 +1,4 @@
-import { WeatherUnits } from 'app/models'
+import { WeatherUnits } from '../../../types/models/common-enums'
 import HttpClient from './http-axios.service'
 
 export default class WeatherService {

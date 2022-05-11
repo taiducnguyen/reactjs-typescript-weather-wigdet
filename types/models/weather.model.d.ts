@@ -1,22 +1,22 @@
 /* eslint-disable camelcase */
-export interface IWeatherModel {
+export type IWeatherModel = {
     id: number;
     main: string;
     description: string;
     icon: string;
 }
 
-export interface ICoordModel {
+export type ICoordModel = {
     lon: number;
     lat: number;
 }
 
-export interface IWindModel {
+export type IWindModel = {
     speed: number;
     deg: number;
 }
 
-export interface IWeatherSysInfoModel {
+export type IWeatherSysInfoModel = {
     type: number;
     id: number;
     message: number;
@@ -26,7 +26,7 @@ export interface IWeatherSysInfoModel {
 }
 
 /* eslint-disable camelcase */
-export interface IWeatherMainInfoModel {
+export type IWeatherMainInfoModel = {
     temp: number;
     pressure: number;
     humidity: number;
@@ -34,7 +34,7 @@ export interface IWeatherMainInfoModel {
     temp_max: number;
 }
 
-export interface IWeatherConditionModel {
+export type IWeatherConditionModel = {
     coord?: ICoordModel;
     weather?: IWeatherModel[];
     base?: string;
@@ -52,7 +52,7 @@ export interface IWeatherConditionModel {
 }
 
 /* eslint-disable camelcase */
-export interface ILocationInfoModel {
+export type ILocationInfoModel = {
     name?: string;
     local_names?: object;
     lat?: number;
@@ -61,7 +61,7 @@ export interface ILocationInfoModel {
 }
 
 /* eslint-disable camelcase */
-export interface IConcentrationModel {
+export type IConcentrationModel = {
     co: number;
     no: number;
     no2: number;
@@ -72,7 +72,7 @@ export interface IConcentrationModel {
     nh3: number;
 }
 
-export interface IAirPollutionDetailModel {
+export type IAirPollutionDetailModel = {
     dt?: number;
     main?: {
         aqi: number;
@@ -80,12 +80,12 @@ export interface IAirPollutionDetailModel {
     components?: IConcentrationModel;
 }
 
-export interface IAirPollutionModel {
+export type IAirPollutionModel = {
     coord?: number[],
     list?: IAirPollutionDetailModel[];
 }
 
-export interface ITemperatureModel {
+export type ITemperatureModel = {
     day: number;
     min: number;
     max: number;
@@ -95,7 +95,7 @@ export interface ITemperatureModel {
 }
 
 /* eslint-disable camelcase */
-export interface ICurrentAndForcecastDetailModel {
+export type ICurrentAndForcecastDetailModel = {
     dt?: number;
     sunrise?: number;
     sunset?: number;
@@ -116,21 +116,21 @@ export interface ICurrentAndForcecastDetailModel {
     uvi?: number;
 }
 
-export interface ICurrentAndForcecastItemModel extends ICurrentAndForcecastDetailModel {
+export type ICurrentAndForcecastItemModel = ICurrentAndForcecastDetailModel & {
     temp?: number;
 }
 
-export interface IDailyAndForcecastItemModel extends ICurrentAndForcecastDetailModel {
+export type IDailyAndForcecastItemModel = ICurrentAndForcecastDetailModel & {
     temp?: ITemperatureModel;
 }
 
-export interface IMinutelyModel {
+export type IMinutelyModel = {
     dt: number;
     precipitation: number;
 }
 
 /* eslint-disable camelcase */
-export interface ICurrentAndForcecastModel {
+export type ICurrentAndForcecastModel = {
     lat?: number;
     lon?: number;
     timezone?: string;
@@ -139,11 +139,4 @@ export interface ICurrentAndForcecastModel {
     minutely?: any;
     hourly?: ICurrentAndForcecastDetailModel;
     daily?: IDailyAndForcecastItemModel[];
-}
-
-/* eslint-disable no-unused-vars */
-export enum WeatherUnits {
-    Standard = 'standard',
-    Imperial = 'imperial',
-    Metric = 'metric',
 }

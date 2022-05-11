@@ -1,4 +1,3 @@
-import { IErrorResponse } from 'app/models'
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
 const isHandlerEnabled = true
 
@@ -14,13 +13,13 @@ const successHandler = (response: AxiosRequestConfig) => {
 }
 
 /* eslint-disable prefer-promise-reject-errors */
-const errorHandler = (error: any): Promise<IErrorResponse> => {
-  return Promise.reject({ ...error.toJSON() as IErrorResponse })
+const errorHandler = (error: any): Promise<Models.IErrorResponse> => {
+  return Promise.reject({ ...error.toJSON() as Models.IErrorResponse })
 }
 
 export default class HttpClient {
   private axios: AxiosInstance
-  constructor (baseUrl: string) {
+  constructor(baseUrl: string) {
     this.axios = axios.create({
       baseURL: baseUrl,
       responseType: 'json'
@@ -41,7 +40,7 @@ export default class HttpClient {
    * Get Http Request
    * @param {string} url
    */
-  get (url: string) {
+  get(url: string) {
     return new Promise((resolve, reject) => {
       this.axios.request({
         url,
@@ -66,7 +65,7 @@ export default class HttpClient {
    * @param {string} url
    * @param {any} parrams
    */
-  post (url: string, parrams: any) {
+  post(url: string, parrams: any) {
     return new Promise((resolve, reject) => {
       this.axios.request({
         url,
@@ -92,7 +91,7 @@ export default class HttpClient {
    * @param {string} url
    * @param {any} parrams
    */
-  put (url: string, parrams: any) {
+  put(url: string, parrams: any) {
     return new Promise((resolve, reject) => {
       this.axios.request({
         url,

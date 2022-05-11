@@ -1,11 +1,9 @@
-import { IErrorModel } from 'app/models'
-
-export const error = (state = {}, payload: any): IErrorModel => {
+export const error = (state = {}, payload: any): Models.IErrorModel => {
   const { error } = payload
   if (!error) {
     return state
   }
-  const formattedError: IErrorModel = {}
+  const formattedError: Models.IErrorModel = {}
   if (error.modelState) {
     formattedError.modelState = error.modelState
   }

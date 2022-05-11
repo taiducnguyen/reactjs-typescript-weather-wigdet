@@ -3,15 +3,15 @@ import { Link } from 'react-router-dom'
 
 /* eslint-disable no-unused-vars */
 enum TimerState {
-    Initial = 'Initial',
-    Start = 'Start',
-    Pause = 'Pause',
-    Resume = 'Resume',
+  Initial = 'Initial',
+  Start = 'Start',
+  Pause = 'Pause',
+  Resume = 'Resume',
 }
 /* eslint-disable no-unused-vars */
 enum TimerAction {
-    Start = 'Start',
-    PauseResume = 'Pause/Resume',
+  Start = 'Start',
+  PauseResume = 'Pause/Resume',
 }
 
 const Timer = () => {
@@ -28,7 +28,7 @@ const Timer = () => {
 
   const countDown = (duration: number): any => {
     let timer = duration
-    function countTimer () {
+    function countTimer() {
       const currentMinutes = parseInt((timer / 60).toString(), 10)
       const currentSeconds = parseInt((timer % 60).toString(), 10)
       setMinutesText(currentMinutes < 10 ? '0' + currentMinutes : currentMinutes.toString())
@@ -59,14 +59,14 @@ const Timer = () => {
     setDuration(timer)
   }
 
-  const handleMinutesInputChange = useCallback((value) => {
+  const handleMinutesInputChange = useCallback((value: string) => {
     if (value) {
       setMinutes(+value)
       calculateTimer(+value, seconds)
     }
   }, [seconds])
 
-  const handleSecondsInputChange = useCallback((value) => {
+  const handleSecondsInputChange = useCallback((value: string) => {
     if (value) {
       setSeconds(+value)
       calculateTimer(minutes, +value)
@@ -113,19 +113,19 @@ const Timer = () => {
   }, [])
 
   return (
-        <Fragment>
-            <div>
-                <Link to={'/'}>
-                    Back to home
-                </Link>
-            </div>
-            <label><input type="number" aria-label="minute-input" ref={inputMinutes} onChange={(e) => handleMinutesInputChange(e.target.value)} />Minutes</label>
-            <label><input type="number" aria-label="second-input" ref={inputSeconds} onChange={(e) => handleSecondsInputChange(e.target.value)} />Seconds</label>
-            <button onClick={() => handlePlayTimer(TimerAction.Start)}>START</button>
-            <button onClick={() => handlePlayTimer(TimerAction.PauseResume)}>PAUSE / RESUME</button>
-            <button onClick={handleResetTimer}>RESET</button>
-            <h1 data-testid="running-clock">{minutesText}:{secondsText}</h1>
-        </Fragment>
+    <Fragment>
+      <div>
+        <Link to={'/'}>
+          Back to home
+        </Link>
+      </div>
+      <label><input type="number" aria-label="minute-input" ref={inputMinutes} onChange={(e) => handleMinutesInputChange(e.target.value)} />Minutes</label>
+      <label><input type="number" aria-label="second-input" ref={inputSeconds} onChange={(e) => handleSecondsInputChange(e.target.value)} />Seconds</label>
+      <button onClick={() => handlePlayTimer(TimerAction.Start)}>START</button>
+      <button onClick={() => handlePlayTimer(TimerAction.PauseResume)}>PAUSE / RESUME</button>
+      <button onClick={handleResetTimer}>RESET</button>
+      <h1 data-testid="running-clock">{minutesText}:{secondsText}</h1>
+    </Fragment>
   )
 }
 

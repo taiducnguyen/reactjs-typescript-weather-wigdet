@@ -4,9 +4,9 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { getAirPollution, getCurrentAndForecast, getLocation } from '../actions/weather.action'
 import { isEmpty, debounce } from 'lodash'
-import { ICurrentAndForcecastItemModel, IDailyAndForcecastItemModel, WeatherUnits } from 'app/models'
 import { convertUnixTimeStampToTime, convertDegToDirection, equalDate, formatTime, getNameOfDays, currentDate, getAirQuality, getFullNameOfDays } from 'app/utils/weather-helper'
 import LoadingIndicator from './LoadingIndicator'
+import { WeatherUnits } from '../../../types/models/common-enums'
 
 const WeatherWidgetContainer = () => {
   const { airPollution, location, currentAndForecast, errors, loading } = useSelector(
@@ -17,15 +17,15 @@ const WeatherWidgetContainer = () => {
   const [showClearInputButton, setShowClearInputButton] = useState(false)
   const [currentUnit, setCurrentUnit] = useState<WeatherUnits>(WeatherUnits.Metric)
   const [firstLoad, setFirstLoad] = useState(true)
-  const [currentWeatherInfo, setCurrentWeatherInfo] = useState<ICurrentAndForcecastItemModel | IDailyAndForcecastItemModel>({})
-  const [dailyWeatherInfo, setDailyWeatherInfo] = useState<IDailyAndForcecastItemModel[]>([])
+  const [currentWeatherInfo, setCurrentWeatherInfo] = useState<Models.ICurrentAndForcecastItemModel | Models.IDailyAndForcecastItemModel>({})
+  const [dailyWeatherInfo, setDailyWeatherInfo] = useState<Models.IDailyAndForcecastItemModel[]>([])
   const inputElm = useRef<HTMLInputElement>(null)
   const dispatch = useDispatch()
 
   // Get location from city name
   useEffect(() => {
     if (!firstLoad) {
-      dispatch(getLocation(currentCityName))
+      dispatch(getLocation(currentCityName) as any)
     } else {
       setFirstLoad(false)
     }
@@ -43,14 +43,14 @@ const WeatherWidgetContainer = () => {
   // Get current and forecast data
   useEffect(() => {
     if (location?.lat && location?.lon) {
-      dispatch(getCurrentAndForecast(location.lat, location.lon, currentUnit))
+      dispatch(getCurrentAndForecast(location.lat, location.lon, currentUnit) as any)
     }
   }, [dispatch, location, currentUnit])
 
   // get air pollution data
   useEffect(() => {
     if (location?.lat && location?.lon) {
-      dispatch(getAirPollution(location.lat, location.lon))
+      dispatch(getAirPollution(location.lat, location.lon) as any)
     }
   }, [dispatch, location])
 

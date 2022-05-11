@@ -1,5 +1,5 @@
 
-export interface IErrorModel {
+export type IErrorModel = {
     status?: number;
     message?: string;
     modelState?: string;
@@ -7,7 +7,7 @@ export interface IErrorModel {
     [path: string]: any;
 }
 
-export interface IErrorResponse {
+export type IErrorResponse = {
     code?: string;
     description?: string;
     message?: string;

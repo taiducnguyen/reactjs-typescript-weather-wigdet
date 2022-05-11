@@ -1,5 +1,4 @@
-import { WeatherActions } from 'app/models/actions/weather.action.model'
-import { IAirPollutionModel, ICurrentAndForcecastModel, IErrorModel, ILocationInfoModel, IWeatherConditionModel } from 'app/models'
+import { WeatherActions } from '../../../types/models/actions/weather.action.model';
 import { error as errorReducer } from './Error.reducer'
 
 interface IWeatherAction {
@@ -8,11 +7,11 @@ interface IWeatherAction {
 }
 
 export interface IWeatherState {
-  weather: IWeatherConditionModel,
-  airPollution: IAirPollutionModel,
-  location: ILocationInfoModel,
-  currentAndForecast: ICurrentAndForcecastModel;
-  errors: IErrorModel;
+  weather: Models.IWeatherConditionModel,
+  airPollution: Models.IAirPollutionModel,
+  location: Models.ILocationInfoModel,
+  currentAndForecast: Models.ICurrentAndForcecastModel;
+  errors: Models.IErrorModel;
   loading: boolean;
 }
 
