@@ -1,5 +1,5 @@
 import { WeatherActions } from '../../../types/models/actions/weather.action.model';
-import { error as errorReducer } from './Error.reducer'
+import { error as errorReducer } from './error.reducer'
 
 interface IWeatherAction {
   type: WeatherActions,
